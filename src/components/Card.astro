@@ -5,19 +5,11 @@ interface Props {
 	title: string;
 	body: string;
 	href: string;
-	date: Date;
+	articleDate: Date;
 	imageUrl: string;
 }
 
-const { href, title, body, date, imageUrl } = Astro.props;
-
-const dateDisplayOptions = {
-  weekday: "long",
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-};
-
+const { href, title, body, articleDate, imageUrl } = Astro.props;
 ---
 
 <li class="link-card">
@@ -31,7 +23,7 @@ const dateDisplayOptions = {
 			{body}
 		</p>
 		<aside>
-			{date.toLocaleString('en-UK', dateDisplayOptions)}
+			{articleDate.toLocaleString('en-UK', { dateStyle: 'full' })}
 		</aside>
 	</a>
 </li>
