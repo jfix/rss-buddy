@@ -1,15 +1,17 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Parser from 'rss-parser';
+import Card from '../components/Card.astro';
 const parser = new Parser();
 
 const sevenDaysAgo = new Date();
-sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 10);
+sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
 
 const feedSources = [
   'https://www.smashingmagazine.com/feed/',
   'https://developer.mozilla.org/en-US/blog/rss.xml',
   'https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml',
+  'https://www.liberation.fr/arc/outboundfeeds/rss-all/?outputType=xml',
 ]
 
 interface FeedItem {
@@ -17,6 +19,7 @@ interface FeedItem {
   title?: string;
   link?: string;
   date?: Date;
+  imageUrl?: string; 
 }
 
 const feedItems: FeedItem[] = [];
@@ -32,6 +35,7 @@ await Promise.allSettled(
             feed: feed.title,
             title: item.title,
             link: item.link,
+            imageUrl: feed.image?.url,
             date,
           });
         }
@@ -50,13 +54,11 @@ const sortedFeedItems = feedItems.sort((a, b) => (b.date ?? new Date()).getTime(
   <main>
   <h1>jfix rss collector</h1>
   {sortedFeedItems.map(item => (
-    <ul>
-      <li>
-        <a href={item.link}>{item.title}</a>
-        <p>{item.feed}</p>
-        <p>{item.date}</p>
-      </li>
-    </ul>
+    <Card title={item.title} 
+      body={item.feed} 
+      href={item.link} 
+      date={item.date}
+      imageUrl={item.imageUrl}></Card>
   ))}
   </main>
 </Layout>
