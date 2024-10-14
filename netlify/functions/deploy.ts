@@ -1,0 +1,15 @@
+// netlify/functions/deploy.ts
+
+import type { Config } from '@netlify/functions';
+
+const BUILD_HOOK = import.meta.env.BUILD_HOOK_URL;
+
+export default async (req: Request) => {
+  await fetch(BUILD_HOOK, {
+    method: 'POST',
+  })
+};
+
+export const config: Config = {
+  schedule: '0 0 * * *',
+};
