@@ -4,7 +4,7 @@ import Parser from 'rss-parser';
 const parser = new Parser();
 
 const sevenDaysAgo = new Date();
-sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 70);
+sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 10);
 
 const feedSources = [
   'https://www.smashingmagazine.com/feed/',
@@ -47,6 +47,7 @@ const sortedFeedItems = feedItems.sort((a, b) => (b.date ?? new Date()).getTime(
 
 <Layout title="My RSS Feed Buddy">
   <main>
+  <h1>jfix rss collector</h1>
   {sortedFeedItems.map(item => (
     <ul>
       <li>
@@ -58,3 +59,9 @@ const sortedFeedItems = feedItems.sort((a, b) => (b.date ?? new Date()).getTime(
   ))}
   </main>
 </Layout>
+
+<style>
+html {
+  background-color: #fff;
+}
+</style>
