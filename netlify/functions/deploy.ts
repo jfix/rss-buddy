@@ -2,6 +2,11 @@
 
 import type { Config } from '@netlify/functions';
 
+declare var process : {
+  env: {
+    BUILD_HOOK_URL: string
+  }
+}
 const BUILD_HOOK = process.env.BUILD_HOOK_URL || '';
 
 export default async (req: Request) => {
